@@ -2,8 +2,9 @@
 .build/
 .swiftpm/
 
-# Release binaries & DMG (distributed via GitHub Releases)
-dist/
+# Release binaries (only distribute Kadmos.dmg)
+dist/*
+!dist/Kadmos.dmg
 
 # Xcode user-specific state
 *.xcuserstate

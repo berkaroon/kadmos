@@ -5,89 +5,100 @@
 <h1 align="center">Kadmos</h1>
 
 <p align="center">
-  <strong>macOS 27 ("Golden Gate" / Liquid Glass) için yerel, güvenli ve sade düz metin editörü.</strong><br/>
-  Windows 11 Notepad işlevselliğini Apple arayüz diline yedirilmiş biçimde sunar.
+  <strong>A native macOS 27 Liquid Glass plain-text editor with 1:1 Windows 11 Notepad feature parity.</strong><br/>
+  Built with pure AppKit and SwiftUI to feel like a first-party Apple application.
+</p>
+
+<p align="center">
+  <a href="https://github.com/berkaroon/Kadmos/raw/main/dist/Kadmos.dmg">
+    <img src="https://img.shields.io/badge/Download-Kadmos.dmg-141923?style=for-the-badge&logo=apple&logoColor=white" alt="Download Kadmos.dmg" />
+  </a>
+  <img src="https://img.shields.io/badge/macOS-26.0%2B-0A84FF?style=for-the-badge" alt="macOS 26.0+" />
+  <img src="https://img.shields.io/badge/Swift-6-F05138?style=for-the-badge&logo=swift&logoColor=white" alt="Swift 6" />
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-34C759?style=for-the-badge" alt="MIT License" />
+  </a>
 </p>
 
 ---
 
-## Öne Çıkan Özellikler
+## Download & Install
 
-- **Apple macOS 27 Liquid Glass Arayüzü:**
-  - Safari tarzı birleşik başlık çubuğunda Liquid Glass sekmeler (`GlassEffectContainer` + `.glassEffect`), tam ekran uyumlu trafik ışığı hizalaması ve cam çubuğun altından akan belge görünümü.
-  - Sekme başlığına tek tıklayarak dosya adı ve uzantısını (`adsız1.txt` → `deneme.yml`) doğrudan sekme içinden **Onayla** butonuyla değiştirme.
-  - Apple **Writing Tools**, VoiceOver ve yerel yazdırma (`⌘P`, `⌘⇧P`) destekli saf AppKit `NSTextView` (TextKit 1) motoru.
-- **Windows 11 Notepad ile Birebir Düz Metin İşlevleri:**
-  - Çoklu sekme (`⌘N`), yeni pencere (`⌘⇧N`), kapatılan sekmeyi geri açma (`⌘⇧T`), sekme çoğaltma, yeni pencereye taşıma ve oturum kurtarma.
-  - Yüzen Liquid Glass **Bul ve Değiştir** çubuğu (`⌘F`, `⌥⌘F`, `⌘G`/`F3`): Büyük/küçük harf, tam sözcük, başa sarma ve zaman aşımı korumalı Düzenli İfade (Regex).
-  - **Satıra Git** (`⌘L`), **Saat/Tarih Ekle** (`F5`), **Sözcük Kaydırma** (`⌥Z`), **Yakınlaştırma** (`%10`–`%500`, parmak kıstırma ve `⌘ + kaydırma`).
-  - **Durum Çubuğu:** Satır/sütun konumu, karakter/seçim/kelime sayacı, satır sonu (`LF` / `CRLF` / `CR`) ve kodlama (`UTF-8`, `UTF-8 BOM`, `UTF-16 LE/BE`, `Windows-1254`, `Windows-1252`, `ISO Latin 1`, `Mac OS Roman`) dönüştürme / yeniden açma.
-  - Uzantı bazlı hariç tutmalı yazım denetimi, yazı tipi seçici (canlı önizlemeli) ve Sistem / Açık / Koyu tema.
-- **Masaüstünde Sağ Tık → Yeni Kadmos Belgesi:**
-  - Gömülü App Sandbox'lı `KadmosFinderSync` uzantısı sayesinde Masaüstü veya Finder klasörlerinde sağ tıklayarak **"Yeni Kadmos Belgesi"** (veya seçili dosyalar için **"Kadmos ile Aç"**) başlatılabilir.
+- **Direct Download:** [**Kadmos.dmg**](https://github.com/berkaroon/Kadmos/raw/main/dist/Kadmos.dmg) (`3.6 MB`, Universal `arm64 + x86_64`)
+- **SHA-256:** `694799c87c13dc985f5f63cebbfb975f59138564761568a58abfaf45f783b933`
+
+### Installation Steps
+1. Open **`Kadmos.dmg`** and drag **Kadmos.app** into your **Applications** folder.
+2. **First Launch (Gatekeeper):** Because Kadmos is distributed independently with an ad-hoc signature rather than a paid Apple Developer ID certificate, macOS may show an *"unverified developer"* warning the first time you open it. Open **System Settings → Privacy & Security**, scroll down, and click **Open Anyway**.
+3. **Desktop Right-Click ("New Kadmos Document"):** Enable **Kadmos Finder** under **System Settings → General → Login Items & Extensions → Finder Extensions**. Once enabled, right-clicking on your Desktop or inside any Finder folder lets you create a new document directly in that folder (or open selected files in Kadmos).
 
 ---
 
-## Güvenlik Mimarisi (`SECURITY.md`)
+## Features
 
-Kadmos, [SECURITY.md](SECURITY.md) gereksinimlerine uygun olarak **Profil A** (en kısıtlayıcı) güvenlik duruşuyla tasarlanmıştır:
+### Native macOS 27 Liquid Glass Experience
+- **Safari-Style Unified Tab Strip:** Liquid Glass tabs (`GlassEffectContainer` & `.glassEffect`) integrated directly into a `40 pt` transparent titlebar aligned with macOS traffic lights, with full-bleed text scrolling smoothly underneath.
+- **Inline Tab & Extension Renaming:** Click the title of any active tab (for example `Adsız 1` → `adsız1.txt`), type a new name and extension (`deneme.yml`), and confirm with the inline **Onayla** button or `Return`. Spell-check rules and Save dialogs adapt to the new extension immediately.
+- **First-Party Apple Polish:** Pure AppKit `NSTextView` (TextKit 1) editor with **Apple Writing Tools**, VoiceOver support, native Print & Page Setup (`⌘P`, `⌘⇧P`), trackpad pinch-to-zoom, and `⌘ + scroll` zooming.
 
-- **App Sandbox + Hardened Runtime** açık; ağ erişimi (`network.client` / `network.server`), JIT, `disable-library-validation` ve `temporary-exception` izinleri **yoktur**.
-- **0 harici paket bağımlılığı:** Yalnızca Apple sistem framework'leri (`AppKit`, `SwiftUI`, `FinderSync`, `UniformTypeIdentifiers`, `OSLog`).
-- **Dosya açma anında sıfır kod çalıştırma:** `WebKit`/`WKWebView`, `eval`, `NSExpression`, `NSAppleScript`, `Process` ve modeline desteği yoktur.
-- **Dosya sistemi sertleştirmesi:** TOCTOU-güvenli doğrudan `open()` + `fstat()`, symlink / `..` kapsam doğrulaması, `+x` biti olmadan atomik kayıt ve kapsayıcı içi `0700`/`0600` izinli oturum kasası (`SessionVault`).
-- **Büyük dosya ve ReDoS koruması:** `50 MB` üstü sınırlı mod, `1 GB` üstü salt-okunur 256 KB akış modu, `.reportProgress` ile zaman aşımı kesmeli regex arama.
-- **Trojan Source görünürlüğü:** Çift yönlü (Bidi) kontrol karakterleri, sıfır genişlikli karakterler ve gizli `U+FEFF` işaretleri varsayılan olarak vurgulanır.
+### 1:1 Windows 11 Notepad Plain-Text Parity
+- **Tabs, Windows & Session Restore:** Multi-tab (`⌘N`), multi-window (`⌘⇧N`), reopen closed tabs (`⌘⇧T`), drag-to-reorder tabs, tab duplication, move tab to new window, and automatic session & unsaved draft persistence across restarts.
+- **Floating Liquid Glass Find & Replace:** Case sensitive (`Aa`), whole word (`ab`), wrap-around (`↻`), and timeout-protected Regular Expressions (`.*`) with match counters (`⌘F`, `⌥⌘F`, `⌘G` / `F3`, `⌘⇧G` / `⇧F3`).
+- **Classic Notepad Utilities:** Go To Line (`⌘L`), Insert Time/Date (`F5`), Word Wrap (`⌥Z`), Zoom (`10%–500%`), and right-click **Search Web** in your default browser.
+- **Status Bar & Text Encodings:** Live Line/Column indicator, character/selection/word counts, line-ending switcher (`LF`, `CRLF`, `CR`), and lossless/reopen support across 8 encodings (`UTF-8`, `UTF-8 BOM`, `UTF-16 LE`, `UTF-16 BE`, `Windows-1254`, `Windows-1252`, `ISO Latin 1`, `Mac OS Roman`).
+- **Customization:** System / Light / Dark appearance, customizable Font family/style/size with live preview, and live spell check / autocorrect with per-extension exclusions for code and config files.
+
+### Lightweight, Offline & Safe by Design
+- **100% Offline & Sandboxed:** Zero network entitlements, zero telemetry, and zero third-party package dependencies—built purely on Apple system frameworks (`AppKit`, `SwiftUI`, `FinderSync`, `UniformTypeIdentifiers`, `OSLog`).
+- **Large File Protection:** Opens files above `50 MB` in performance-guarded limited mode and streams files above `1 GB` in bounded `256 KB` read-only chunks.
+- **Invisible Character Visibility:** Highlights bidirectional (Bidi) and zero-width Unicode control characters by default so hidden characters never slip past unnoticed.
 
 ---
 
-## Kurulum & Kaynak Koddan Derleme
+## Build from Source
 
-### Gereksinimler
-- **macOS 26.0+** (Apple Silicon / Universal, macOS 27.2 üzerinde test edildi)
-- **Xcode 27.2+** (`Swift 6.0` / `6.4.2`)
+### Requirements
+- **macOS 26.0+** (tested on macOS 27.2, Apple Silicon)
+- **Xcode 27.2+** (`Swift 6.0+`)
 
-### 1. Testleri Çalıştırma (`KadmosCore`)
+### Run Tests (`KadmosCore`)
 ```bash
 swift test
 ```
 
-### 2. Uygulamayı Derleme, İmzalama ve Paketleme
+### Build, Sign & Package `Kadmos.app` and `Kadmos.dmg`
 ```bash
 ./scripts/build_app.sh
 ```
-Betik sırasıyla testleri çalıştırır, `Kadmos.xcodeproj` dosyasını üretir, Release derlemesini alır, içten dışa (`KadmosFinderSync.appex` önce, `Kadmos.app` sonra) Hardened Runtime (`--options runtime`) ile imzalar ve `dist/Kadmos.app` ile `dist/Kadmos.dmg` çıktılarını oluşturur.
-
-### 3. Kurulum ve Finder Sağ Tık Eklentisi
-1. `dist/Kadmos.app` paketini `/Applications/` klasörüne kopyalayın.
-2. Masaüstü sağ tık menüsü için **Sistem Ayarları → Genel → Giriş Öğeleri ve Genişletmeler → Finder Genişletmeleri** altından **Kadmos Finder** anahtarını etkinleştirin.
+This runs the full `KadmosCoreTests` suite, generates `Kadmos.xcodeproj`, compiles a Release build, signs `KadmosFinderSync.appex` and `Kadmos.app` inside-out with Hardened Runtime, verifies signatures and entitlements, and outputs `dist/Kadmos.app` and `dist/Kadmos.dmg`.
 
 ---
 
-## Proje Yapısı
+## Project Structure
 
 ```text
 Kadmos/
-├── Assets/                  # Uygulama ikonları (.icns, PNG)
-├── Config/                  # Entitlements ve Info.plist dosyaları (Profil A)
+├── Assets/                  # App icons (.icns, PNGs) and custom logo artwork
+├── Config/                  # Entitlements and Info.plist manifests
 ├── Sources/
-│   ├── KadmosCore/          # Kodlama, satır sonu, güvenlik, ReDoS-güvenli arama, Trojan tarayıcı, oturum kasası
-│   ├── KadmosApp/           # SwiftUI + AppKit editör arayüzü, Safari tarzı sekmeler, ayarlar
-│   └── KadmosFinderSync/    # Finder sağ tık uzantısı (.appex)
-├── Tests/KadmosCoreTests/   # Birim ve güvenlik testleri (33 test)
-├── scripts/                 # Xcode proje üretici ve derleme/imzalama betikleri
-├── Package.swift
-└── SECURITY.md
+│   ├── KadmosCore/          # Encodings, line endings, safe I/O, ReDoS-safe search, Trojan scanner, session vault
+│   ├── KadmosApp/           # SwiftUI + AppKit editor UI, Safari-style Liquid Glass tabs, settings
+│   └── KadmosFinderSync/    # Embedded Finder right-click extension (.appex)
+├── Tests/KadmosCoreTests/   # Unit and hardening test suite (33 tests)
+├── dist/                    # Prebuilt Kadmos.dmg installer
+├── scripts/                 # Xcode project generator and build/signing scripts
+└── Package.swift
 ```
 
 ---
 
-## Sorun Bildirme (Issues) & Katkı
+## Issues & Feedback
 
-Bir hata ile karşılaşırsanız, Finder eklentisinde sorun yaşarsanız veya yeni bir özellik önermek isterseniz lütfen **[GitHub Issues](../../issues)** sayfasından yeni bir kayıt açın.
+Encountered a bug, having trouble with the Finder extension, or want to suggest a feature?  
+Please open a ticket on [**GitHub Issues**](https://github.com/berkaroon/Kadmos/issues).
 
-> Güvenlik açıklarını herkese açık Issue olarak **açmayın**; lütfen [SECURITY.md](SECURITY.md) Bölüm 12'deki güvenlik bildirim sürecini kullanın.
+---
 
-## Lisans
+## License
 
-Bu proje [MIT Lisansı](LICENSE) ile lisanslanmıştır.
+Released under the [MIT License](LICENSE).

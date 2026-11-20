@@ -1,17 +1,17 @@
-name: Özellik İsteği (Feature Request)
-description: Kadmos için yeni bir özellik veya iyileştirme önerin.
+name: Feature Request
+description: Suggest a new feature or enhancement for Kadmos.
 title: "[Feature]: "
 labels: ["enhancement"]
 body:
   - type: textarea
     id: proposal
     attributes:
-      label: Önerilen Özellik
-      description: Hangi özelliği veya iyileştirmeyi görmek istersiniz?
+      label: Proposed Feature
+      description: Describe the feature or improvement you would like to see.
     validations:
       required: true
   - type: textarea
     id: use_case
     attributes:
-      label: Kullanım Senaryosu
-      description: Bu özellik günlük iş akışınızda hangi sorunu çözer?
+      label: Use Case
+      description: How would this feature help your workflow in Kadmos?

@@ -1,5 +1,1 @@
 blank_issues_enabled: true
-contact_links:
-  - name: Güvenlik Açığı Bildirimi (SECURITY.md)
-    url: ../../blob/main/SECURITY.md
-    about: Güvenlik açıklarını herkese açık Issue olarak açmayın; lütfen SECURITY.md Bölüm 12 yönergelerini izleyin.
