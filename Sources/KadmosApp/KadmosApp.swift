@@ -36,6 +36,7 @@ public final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     public func application(_ application: NSApplication, open urls: [URL]) {
+        AppController.shared.activateApplication()
         var fileURLs: [URL] = []
         for url in urls {
             if url.isFileURL {
@@ -55,7 +56,11 @@ public final class AppDelegate: NSObject, NSApplicationDelegate {
 
     public func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
         if !flag {
-            AppController.shared.openNewWindow()
+            if let miniaturizedStore = AppController.shared.windows.first(where: { $0.hostWindow?.isMiniaturized == true }) {
+                AppController.shared.bringWindowToFront(miniaturizedStore)
+            } else {
+                AppController.shared.openNewWindow()
+            }
         }
         return true
     }
@@ -72,6 +77,7 @@ public struct KadmosApp: App {
             EditorWindowRoot()
         }
         .windowStyle(.hiddenTitleBar)
+        .defaultLaunchBehavior(.presented)
         .handlesExternalEvents(matching: Set<String>())
         .defaultSize(width: 980, height: 680)
         .commands {
@@ -85,6 +91,8 @@ public struct KadmosApp: App {
         Window("Kadmos Hakkında", id: "about") {
             AboutKadmosView()
         }
+        .defaultLaunchBehavior(.suppressed)
+        .handlesExternalEvents(matching: Set<String>())
         .windowResizability(.contentSize)
     }
 }

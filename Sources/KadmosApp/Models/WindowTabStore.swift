@@ -58,6 +58,7 @@ public final class WindowTabStore: Identifiable {
     public nonisolated var id: UUID { windowID }
 
     @ObservationIgnored public weak var hostWindow: NSWindow?
+    @ObservationIgnored public var pendingBringToFront: Bool = false
     @ObservationIgnored public var onSessionMutated: (() -> Void)?
 
     public var tabs: [DocumentTab]

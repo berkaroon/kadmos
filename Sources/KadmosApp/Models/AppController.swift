@@ -34,9 +34,46 @@ public final class AppController {
         return windows.first
     }
 
+    /// Activates the application using both macOS 14+ cooperative activation and legacy fallback.
+    public func activateApplication() {
+        NSApp?.activate()
+        NSApp?.activate(ignoringOtherApps: true)
+    }
+
+    /// Activates Kadmos, unminiaturizes if needed, orders the target window to front, and focuses the editor.
+    public func bringWindowToFront(_ store: WindowTabStore) {
+        activateApplication()
+        guard let window = store.hostWindow else {
+            store.pendingBringToFront = true
+            return
+        }
+        store.pendingBringToFront = false
+        if window.isMiniaturized {
+            window.deminiaturize(nil)
+        }
+        window.makeKeyAndOrderFront(nil)
+        store.dispatchEditorAction(.focusEditor)
+
+        DispatchQueue.main.async { [weak self, weak window, weak store] in
+            guard let self, let window, let store else { return }
+            self.activateApplication()
+            if window.isMiniaturized {
+                window.deminiaturize(nil)
+            }
+            window.makeKeyAndOrderFront(nil)
+            store.dispatchEditorAction(.focusEditor)
+        }
+    }
+
     /// Registers SwiftUI's `openWindow(id: "editor")` closure for programmatic multi-window creation.
     public func registerOpenWindowHandler(_ handler: @escaping () -> Void) {
         openNewWindowAction = handler
+        if !pendingWindowStores.isEmpty {
+            let pendingCount = pendingWindowStores.count
+            for _ in 0..<pendingCount {
+                handler()
+            }
+        }
     }
 
     /// Claims a pending `WindowTabStore` or creates/restores a store when a SwiftUI `WindowGroup` scene mounts.
@@ -82,6 +119,7 @@ public final class AppController {
     /// Opens a brand-new editor window (`⌘⇧N`).
     public func openNewWindow() {
         let store = WindowTabStore(settings: KadmosSettings.shared, createInitialTab: true)
+        store.pendingBringToFront = true
         pendingWindowStores.append(store)
         if let openNewWindowAction {
             openNewWindowAction()
@@ -116,6 +154,7 @@ public final class AppController {
     public func openFilesFromFinderOrSystem(_ urls: [URL]) {
         guard !urls.isEmpty else { return }
         hasAttemptedInitialRestore = true
+        activateApplication()
 
         switch KadmosSettings.shared.openFilesTarget {
         case .newTab:
@@ -123,14 +162,14 @@ public final class AppController {
             for url in urls {
                 targetStore.openFile(url: url)
             }
-            targetStore.hostWindow?.makeKeyAndOrderFront(nil)
+            bringWindowToFront(targetStore)
 
         case .newWindow:
             if let existing = activeWindowStore,
                existing.tabs.count == 1,
                existing.tabs[0].isEmptyPristineUntitled {
                 existing.openFile(url: urls[0])
-                existing.hostWindow?.makeKeyAndOrderFront(nil)
+                bringWindowToFront(existing)
                 for extraURL in urls.dropFirst() {
                     openURLInDedicatedNewWindow(extraURL)
                 }
@@ -143,11 +182,13 @@ public final class AppController {
     }
 
     private func openURLInDedicatedNewWindow(_ url: URL) {
+        activateApplication()
         let store = WindowTabStore(settings: KadmosSettings.shared, createInitialTab: false)
         store.openFile(url: url)
         if store.tabs.isEmpty {
             _ = store.addNewTab(select: true)
         }
+        store.pendingBringToFront = true
         pendingWindowStores.append(store)
         openNewWindowAction?()
     }
@@ -166,7 +207,7 @@ public final class AppController {
 
         let targetStore = ensureTargetWindowStore()
         targetStore.openFile(url: resolvedURL, asEncoding: nil, bookmarkData: entry.bookmarkData)
-        targetStore.hostWindow?.makeKeyAndOrderFront(nil)
+        bringWindowToFront(targetStore)
     }
 
     /// Handles validated `kadmos://` external URLs with strict user confirmation (`SECURITY.md` §5).
@@ -189,7 +230,7 @@ public final class AppController {
 
     /// Presents a Powerbox `NSSavePanel` pre-directed to the right-clicked folder; never writes without consent (`SECURITY.md` §5).
     private func presentNewDocumentSavePanel(preselectedDirectory: URL?) {
-        NSApp?.activate(ignoringOtherApps: true)
+        activateApplication()
 
         let panel = NSSavePanel()
         panel.title = "Yeni Kadmos Belgesi Oluştur"
@@ -209,7 +250,7 @@ public final class AppController {
             try DocumentSecurity.atomicSave(data: Data(), to: destinationURL)
             let store = ensureTargetWindowStore()
             store.openFile(url: destinationURL)
-            store.hostWindow?.makeKeyAndOrderFront(nil)
+            bringWindowToFront(store)
         } catch {
             let store = ensureTargetWindowStore()
             store.alertMessage = KadmosAlert(
@@ -221,7 +262,7 @@ public final class AppController {
 
     /// Requires explicit user confirmation before opening a path passed via `kadmos://open-request`.
     private func confirmAndOpenRouteFile(_ fileURL: URL) {
-        NSApp?.activate(ignoringOtherApps: true)
+        activateApplication()
 
         let alert = NSAlert()
         alert.alertStyle = .informational
@@ -245,7 +286,7 @@ public final class AppController {
         if FileManager.default.isReadableFile(atPath: fileURL.path) {
             let store = ensureTargetWindowStore()
             store.openFile(url: fileURL)
-            store.hostWindow?.makeKeyAndOrderFront(nil)
+            bringWindowToFront(store)
             return
         }
 
@@ -259,7 +300,7 @@ public final class AppController {
         if panel.runModal() == .OK, let selected = panel.url {
             let store = ensureTargetWindowStore()
             store.openFile(url: selected)
-            store.hostWindow?.makeKeyAndOrderFront(nil)
+            bringWindowToFront(store)
         }
     }
 
@@ -352,6 +393,7 @@ public final class AppController {
             return active
         }
         let fresh = WindowTabStore(settings: KadmosSettings.shared, createInitialTab: true)
+        fresh.pendingBringToFront = true
         pendingWindowStores.append(fresh)
         openNewWindowAction?()
         if !windows.contains(where: { $0.windowID == fresh.windowID }) {

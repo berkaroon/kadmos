@@ -76,6 +76,13 @@ public struct WindowLifecycleAccessor: NSViewRepresentable {
 
         func attach(to window: NSWindow) {
             store.hostWindow = window
+            if store.pendingBringToFront {
+                store.pendingBringToFront = false
+                let targetStore = store
+                DispatchQueue.main.async {
+                    AppController.shared.bringWindowToFront(targetStore)
+                }
+            }
             let fullScreen = window.styleMask.contains(.fullScreen)
             if isFullScreen.wrappedValue != fullScreen {
                 DispatchQueue.main.async { [isFullScreen] in
