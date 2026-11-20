@@ -5,7 +5,7 @@
 <h1 align="center">Kadmos</h1>
 
 <p align="center">
-  <strong>A native macOS plain-text editor with 1:1 Windows 11 Notepad feature parity and Liquid Glass UI (macOS 26+).</strong><br/>
+  <strong>A native macOS plain-text editor and Liquid Glass UI (macOS 26+).</strong><br/>
   Built with pure AppKit and SwiftUI to feel like a first-party Apple application.
 </p>
 
