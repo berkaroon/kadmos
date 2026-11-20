@@ -41,7 +41,7 @@
 - **Inline Tab & Extension Renaming:** Click the title of any active tab (for example `Adsız 1` → `adsız1.txt`), type a new name and extension (`deneme.yml`), and confirm with the inline **Onayla** button or `Return`. Spell-check rules and Save dialogs adapt to the new extension immediately.
 - **First-Party Apple Polish:** Pure AppKit `NSTextView` (TextKit 1) editor with **Apple Writing Tools**, VoiceOver support, native Print & Page Setup (`⌘P`, `⌘⇧P`), trackpad pinch-to-zoom, and `⌘ + scroll` zooming.
 
-### 1:1 Windows 11 Notepad Plain-Text Parity
+### Plain-Text Parity
 - **Tabs, Windows & Session Restore:** Multi-tab (`⌘N`), multi-window (`⌘⇧N`), reopen closed tabs (`⌘⇧T`), drag-to-reorder tabs, tab duplication, move tab to new window, and automatic session & unsaved draft persistence across restarts.
 - **Floating Liquid Glass Find & Replace:** Case sensitive (`Aa`), whole word (`ab`), wrap-around (`↻`), and timeout-protected Regular Expressions (`.*`) with match counters (`⌘F`, `⌥⌘F`, `⌘G` / `F3`, `⌘⇧G` / `⇧F3`).
 - **Classic Notepad Utilities:** Go To Line (`⌘L`), Insert Time/Date (`F5`), Word Wrap (`⌥Z`), Zoom (`10%–500%`), and right-click **Search Web** in your default browser.
