@@ -33,6 +33,7 @@ private struct EditorWindowRoot: View {
 public final class AppDelegate: NSObject, NSApplicationDelegate {
     public func applicationDidFinishLaunching(_ notification: Notification) {
         KadmosSettings.shared.applyAppearance()
+        AppController.shared.handleDidFinishLaunching()
     }
 
     public func application(_ application: NSApplication, open urls: [URL]) {
@@ -56,11 +57,13 @@ public final class AppDelegate: NSObject, NSApplicationDelegate {
 
     public func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
         if !flag {
-            if let miniaturizedStore = AppController.shared.windows.first(where: { $0.hostWindow?.isMiniaturized == true }) {
-                AppController.shared.bringWindowToFront(miniaturizedStore)
+            if let existingStore = AppController.shared.activeWindowStore ?? AppController.shared.windows.first {
+                AppController.shared.bringWindowToFront(existingStore)
             } else {
                 AppController.shared.openNewWindow()
             }
+        } else if let activeStore = AppController.shared.activeWindowStore {
+            AppController.shared.bringWindowToFront(activeStore)
         }
         return true
     }

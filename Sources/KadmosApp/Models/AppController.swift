@@ -34,10 +34,27 @@ public final class AppController {
         return windows.first
     }
 
-    /// Activates the application using both macOS 14+ cooperative activation and legacy fallback.
+    /// Activates the application, unhides if hidden, and brings all windows forward (TextEdit-like behavior).
     public func activateApplication() {
+        NSApp?.unhide(nil)
+        NSRunningApplication.current.activate(options: [.activateAllWindows])
         NSApp?.activate()
         NSApp?.activate(ignoringOtherApps: true)
+    }
+
+    /// Called when `applicationDidFinishLaunching` completes to ensure cold launches from Finder come straight to front.
+    public func handleDidFinishLaunching() {
+        activateApplication()
+        if let store = activeWindowStore ?? windows.first {
+            bringWindowToFront(store)
+        }
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.activateApplication()
+            if let store = self.activeWindowStore ?? self.windows.first {
+                self.bringWindowToFront(store)
+            }
+        }
     }
 
     /// Activates Kadmos, unminiaturizes if needed, orders the target window to front, and focuses the editor.
@@ -52,10 +69,22 @@ public final class AppController {
             window.deminiaturize(nil)
         }
         window.makeKeyAndOrderFront(nil)
+        window.orderFrontRegardless()
         store.dispatchEditorAction(.focusEditor)
 
         DispatchQueue.main.async { [weak self, weak window, weak store] in
             guard let self, let window, let store else { return }
+            self.activateApplication()
+            if window.isMiniaturized {
+                window.deminiaturize(nil)
+            }
+            window.makeKeyAndOrderFront(nil)
+            store.dispatchEditorAction(.focusEditor)
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) { [weak self, weak window, weak store] in
+            guard let self, let window, let store else { return }
+            guard NSApp?.isActive != true || !window.isKeyWindow else { return }
             self.activateApplication()
             if window.isMiniaturized {
                 window.deminiaturize(nil)
@@ -158,9 +187,14 @@ public final class AppController {
 
         switch KadmosSettings.shared.openFilesTarget {
         case .newTab:
-            let targetStore = ensureTargetWindowStore()
+            let targetStore = ensureTargetWindowStore(createInitialTab: false)
             for url in urls {
                 targetStore.openFile(url: url)
+            }
+            if targetStore.tabs.isEmpty {
+                _ = targetStore.addNewTab(select: true)
+            } else {
+                targetStore.pruneEmptyPristineUntitledTabs()
             }
             bringWindowToFront(targetStore)
 
@@ -169,6 +203,7 @@ public final class AppController {
                existing.tabs.count == 1,
                existing.tabs[0].isEmptyPristineUntitled {
                 existing.openFile(url: urls[0])
+                existing.pruneEmptyPristineUntitledTabs()
                 bringWindowToFront(existing)
                 for extraURL in urls.dropFirst() {
                     openURLInDedicatedNewWindow(extraURL)
@@ -323,7 +358,9 @@ public final class AppController {
             return
         }
 
-        let allTabs = windows.flatMap(\.tabs)
+        let rawTabs = windows.flatMap(\.tabs)
+        let hasSubstantiveTab = rawTabs.contains { !$0.isEmptyPristineUntitled }
+        let allTabs = hasSubstantiveTab ? rawTabs.filter { !$0.isEmptyPristineUntitled } : rawTabs
         var snapshots: [SessionTabSnapshot] = []
         snapshots.reserveCapacity(allTabs.count)
 
@@ -388,11 +425,11 @@ public final class AppController {
 
     // MARK: - Private Helpers
 
-    private func ensureTargetWindowStore() -> WindowTabStore {
+    private func ensureTargetWindowStore(createInitialTab: Bool = true) -> WindowTabStore {
         if let active = activeWindowStore {
             return active
         }
-        let fresh = WindowTabStore(settings: KadmosSettings.shared, createInitialTab: true)
+        let fresh = WindowTabStore(settings: KadmosSettings.shared, createInitialTab: createInitialTab)
         fresh.pendingBringToFront = true
         pendingWindowStores.append(fresh)
         openNewWindowAction?()
@@ -413,6 +450,7 @@ public final class AppController {
                 store.insertRestoredTab(restored, select: item.id == snapshot.activeTabID)
             }
         }
+        store.pruneEmptyPristineUntitledTabs()
 
         guard !store.tabs.isEmpty else { return nil }
         if let activeID = snapshot.activeTabID,

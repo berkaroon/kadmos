@@ -193,6 +193,19 @@ public final class WindowTabStore: Identifiable {
 
     // MARK: - File Opening & Reloading
 
+    /// Removes stray untouched empty untitled tabs (`Adsız 1`) whenever at least one real/edited tab exists.
+    public func pruneEmptyPristineUntitledTabs() {
+        guard tabs.contains(where: { !$0.isEmptyPristineUntitled }) else { return }
+        let removedCount = tabs.count
+        tabs.removeAll { $0.isEmptyPristineUntitled }
+        if tabs.count != removedCount {
+            if let activeTabID, !tabs.contains(where: { $0.id == activeTabID }) {
+                self.activeTabID = tabs.first?.id
+            }
+            onSessionMutated?()
+        }
+    }
+
     public func openFile(
         url: URL,
         asEncoding: KadmosTextEncoding? = nil,
@@ -226,12 +239,13 @@ public final class WindowTabStore: Identifiable {
                     existing.bookmarkData = savedBookmark
                 }
                 selectTab(existing.id)
+                pruneEmptyPristineUntitledTabs()
                 return
             }
 
             let targetTab: DocumentTab
-            if tabs.count == 1, tabs[0].isEmptyPristineUntitled {
-                targetTab = tabs[0]
+            if let pristine = tabs.first(where: { $0.isEmptyPristineUntitled }) {
+                targetTab = pristine
             } else {
                 let fresh = DocumentTab(untitledNumber: nil)
                 tabs.append(fresh)
@@ -274,6 +288,7 @@ public final class WindowTabStore: Identifiable {
                 activeTabID = targetTab.id
             }
 
+            pruneEmptyPristineUntitledTabs()
             dispatchEditorAction(.focusEditor)
             if isFindBarVisible && !findQuery.isEmpty {
                 scheduleSearch(immediate: true)
