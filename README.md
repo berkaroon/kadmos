@@ -5,7 +5,7 @@
 <h1 align="center">Kadmos</h1>
 
 <p align="center">
-  <strong>A native macOS 27 Liquid Glass plain-text editor with 1:1 Windows 11 Notepad feature parity.</strong><br/>
+  <strong>A native macOS plain-text editor with 1:1 Windows 11 Notepad feature parity and Liquid Glass UI (macOS 26+).</strong><br/>
   Built with pure AppKit and SwiftUI to feel like a first-party Apple application.
 </p>
 
@@ -13,7 +13,7 @@
   <a href="https://github.com/berkaroon/Kadmos/raw/main/dist/Kadmos.dmg">
     <img src="https://img.shields.io/badge/Download-Kadmos.dmg-141923?style=for-the-badge&logo=apple&logoColor=white" alt="Download Kadmos.dmg" />
   </a>
-  <img src="https://img.shields.io/badge/macOS-26.0%2B-0A84FF?style=for-the-badge" alt="macOS 26.0+" />
+  <img src="https://img.shields.io/badge/macOS-15.0%2B-0A84FF?style=for-the-badge" alt="macOS 15.0+" />
   <img src="https://img.shields.io/badge/Swift-6-F05138?style=for-the-badge&logo=swift&logoColor=white" alt="Swift 6" />
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-34C759?style=for-the-badge" alt="MIT License" />
@@ -25,7 +25,7 @@
 ## Download & Install
 
 - **Direct Download:** [**Kadmos.dmg**](https://github.com/berkaroon/Kadmos/raw/main/dist/Kadmos.dmg) (`3.6 MB`, Universal `arm64 + x86_64`)
-- **SHA-256:** `694799c87c13dc985f5f63cebbfb975f59138564761568a58abfaf45f783b933`
+- **SHA-256:** `5ed1e97a0cbeb06fabdf371b2108d101d8332d215278a38a8823fc77a8d0b785`
 
 ### Installation Steps
 1. Open **`Kadmos.dmg`** and drag **Kadmos.app** into your **Applications** folder.
@@ -36,14 +36,14 @@
 
 ## Features
 
-### Native macOS 27 Liquid Glass Experience
-- **Safari-Style Unified Tab Strip:** Liquid Glass tabs (`GlassEffectContainer` & `.glassEffect`) integrated directly into a `40 pt` transparent titlebar aligned with macOS traffic lights, with full-bleed text scrolling smoothly underneath.
+### Native macOS & Liquid Glass Experience
+- **Safari-Style Unified Tab Strip:** Integrated directly into a `40 pt` transparent titlebar aligned with macOS traffic lights, featuring native **Liquid Glass** (`GlassEffectContainer` & `.glassEffect`) on **macOS 26+** with native frosted material fallback on **macOS 15 Sequoia**, and full-bleed text scrolling smoothly underneath.
 - **Inline Tab & Extension Renaming:** Click the title of any active tab (for example `Adsız 1` → `adsız1.txt`), type a new name and extension (`deneme.yml`), and confirm with the inline **Onayla** button or `Return`. Spell-check rules and Save dialogs adapt to the new extension immediately.
 - **First-Party Apple Polish:** Pure AppKit `NSTextView` (TextKit 1) editor with **Apple Writing Tools**, VoiceOver support, native Print & Page Setup (`⌘P`, `⌘⇧P`), trackpad pinch-to-zoom, and `⌘ + scroll` zooming.
 
 ### Plain-Text Parity
 - **Tabs, Windows & Session Restore:** Multi-tab (`⌘N`), multi-window (`⌘⇧N`), reopen closed tabs (`⌘⇧T`), drag-to-reorder tabs, tab duplication, move tab to new window, and automatic session & unsaved draft persistence across restarts.
-- **Floating Liquid Glass Find & Replace:** Case sensitive (`Aa`), whole word (`ab`), wrap-around (`↻`), and timeout-protected Regular Expressions (`.*`) with match counters (`⌘F`, `⌥⌘F`, `⌘G` / `F3`, `⌘⇧G` / `⇧F3`).
+- **Floating Find & Replace:** Case sensitive (`Aa`), whole word (`ab`), wrap-around (`↻`), and timeout-protected Regular Expressions (`.*`) with match counters (`⌘F`, `⌥⌘F`, `⌘G` / `F3`, `⌘⇧G` / `⇧F3`) — rendered with Liquid Glass on macOS 26+ and frosted material on macOS 15.
 - **Classic Notepad Utilities:** Go To Line (`⌘L`), Insert Time/Date (`F5`), Word Wrap (`⌥Z`), Zoom (`10%–500%`), and right-click **Search Web** in your default browser.
 - **Status Bar & Text Encodings:** Live Line/Column indicator, character/selection/word counts, line-ending switcher (`LF`, `CRLF`, `CR`), and lossless/reopen support across 8 encodings (`UTF-8`, `UTF-8 BOM`, `UTF-16 LE`, `UTF-16 BE`, `Windows-1254`, `Windows-1252`, `ISO Latin 1`, `Mac OS Roman`).
 - **Customization:** System / Light / Dark appearance, customizable Font family/style/size with live preview, and live spell check / autocorrect with per-extension exclusions for code and config files.
@@ -58,7 +58,7 @@
 ## Build from Source
 
 ### Requirements
-- **macOS 26.0+** (tested on macOS 27.2, Apple Silicon)
+- **macOS 15.0+** (compatible with macOS 15 Sequoia, macOS 26 Tahoe, and macOS 27 Golden Gate; Liquid Glass UI enabled on macOS 26+)
 - **Xcode 27.2+** (`Swift 6.0+`)
 
 ### Run Tests (`KadmosCore`)

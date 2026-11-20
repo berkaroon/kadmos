@@ -175,7 +175,7 @@ public struct FindReplaceBarView: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 9)
-        .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+        .kadmosGlassSurface(in: RoundedRectangle(cornerRadius: 14, style: .continuous))
         .shadow(color: Color.black.opacity(0.14), radius: 14, x: 0, y: 6)
         .onAppear {
             focusedField = .find

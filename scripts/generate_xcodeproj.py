@@ -602,7 +602,7 @@ def main() -> None:
         "ENABLE_APP_SANDBOX": "YES",
         "ENABLE_HARDENED_RUNTIME": "YES",
         "ENABLE_USER_SCRIPT_SANDBOXING": "YES",
-        "MACOSX_DEPLOYMENT_TARGET": "26.0",
+        "MACOSX_DEPLOYMENT_TARGET": "15.0",
         "SDKROOT": "macosx",
         "SUPPORTED_PLATFORMS": "macosx",
         "SWIFT_STRICT_CONCURRENCY": "complete",

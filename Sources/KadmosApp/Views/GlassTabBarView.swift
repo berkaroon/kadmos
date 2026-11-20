@@ -34,7 +34,7 @@ public struct GlassTabBarView: View {
             // Empty header space remains draggable like Safari.
             WindowDragArea()
 
-            GlassEffectContainer(spacing: 8) {
+            KadmosGlassContainer(spacing: 8) {
                 HStack(spacing: 8) {
                     // Exact alignment with macOS `.unifiedCompact` traffic lights (`x = 12..66`, centered at `y = 20`).
                     Color.clear
@@ -294,7 +294,7 @@ public struct GlassTabBarView: View {
                 .contentShape(Circle())
         }
         .buttonStyle(.plain)
-        .glassEffect(.regular.interactive(), in: Circle())
+        .kadmosGlassSurface(interactive: true, in: Circle())
         .help("Yeni Sekme (⌘N)")
     }
 
@@ -336,7 +336,7 @@ public struct GlassTabBarView: View {
         }
         .padding(.horizontal, 6)
         .padding(.vertical, 2)
-        .glassEffect(.regular.interactive(), in: Capsule())
+        .kadmosGlassSurface(interactive: true, in: Capsule())
     }
 
     private func revealInFinder(_ tab: DocumentTab) {
@@ -648,7 +648,7 @@ private struct SafariTabSurfaceModifier: ViewModifier {
     func body(content: Content) -> some View {
         if isActive {
             content
-                .glassEffect(.regular.interactive(), in: Capsule())
+                .kadmosGlassSurface(interactive: true, in: Capsule())
         } else {
             content
                 .background(

@@ -34,7 +34,7 @@ public struct AboutKadmosView: View {
                 .foregroundStyle(.secondary)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 5)
-                .glassEffect(.regular, in: Capsule())
+                .kadmosGlassSurface(in: Capsule())
 
             Text(copyrightString)
                 .font(.system(size: 11))

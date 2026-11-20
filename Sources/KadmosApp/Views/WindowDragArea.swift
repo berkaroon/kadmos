@@ -68,17 +68,10 @@ public struct WindowLifecycleAccessor: NSViewRepresentable {
         private weak var attachedWindow: NSWindow?
         private weak var originalCloseTarget: AnyObject?
         private var originalCloseAction: Selector?
-        private var observers: [NSObjectProtocol] = []
 
         init(store: WindowTabStore, isFullScreen: Binding<Bool>) {
             self.store = store
             self.isFullScreen = isFullScreen
-        }
-
-        isolated deinit {
-            for token in observers {
-                NotificationCenter.default.removeObserver(token)
-            }
         }
 
         func attach(to window: NSWindow) {
@@ -115,53 +108,49 @@ public struct WindowLifecycleAccessor: NSViewRepresentable {
             window.toolbarStyle = .unifiedCompact
             window.isMovableByWindowBackground = false
 
-            for token in observers {
-                NotificationCenter.default.removeObserver(token)
-            }
-            observers.removeAll()
-
             let nc = NotificationCenter.default
-            observers.append(nc.addObserver(
-                forName: NSWindow.didBecomeKeyNotification,
-                object: window,
-                queue: .main
-            ) { [weak self] _ in
-                MainActor.assumeIsolated {
-                    guard let self else { return }
-                    AppController.shared.activeWindowID = self.store.windowID
-                }
-            })
+            nc.removeObserver(self)
+            nc.addObserver(
+                self,
+                selector: #selector(handleWindowDidBecomeKey(_:)),
+                name: NSWindow.didBecomeKeyNotification,
+                object: window
+            )
+            nc.addObserver(
+                self,
+                selector: #selector(handleWindowDidEnterFullScreen(_:)),
+                name: NSWindow.didEnterFullScreenNotification,
+                object: window
+            )
+            nc.addObserver(
+                self,
+                selector: #selector(handleWindowDidExitFullScreen(_:)),
+                name: NSWindow.didExitFullScreenNotification,
+                object: window
+            )
+            nc.addObserver(
+                self,
+                selector: #selector(handleWindowWillClose(_:)),
+                name: NSWindow.willCloseNotification,
+                object: window
+            )
+        }
 
-            observers.append(nc.addObserver(
-                forName: NSWindow.didEnterFullScreenNotification,
-                object: window,
-                queue: .main
-            ) { [weak self] _ in
-                MainActor.assumeIsolated {
-                    self?.isFullScreen.wrappedValue = true
-                }
-            })
+        @objc private func handleWindowDidBecomeKey(_ notification: Notification) {
+            AppController.shared.activeWindowID = store.windowID
+        }
 
-            observers.append(nc.addObserver(
-                forName: NSWindow.didExitFullScreenNotification,
-                object: window,
-                queue: .main
-            ) { [weak self] _ in
-                MainActor.assumeIsolated {
-                    self?.isFullScreen.wrappedValue = false
-                }
-            })
+        @objc private func handleWindowDidEnterFullScreen(_ notification: Notification) {
+            isFullScreen.wrappedValue = true
+        }
 
-            observers.append(nc.addObserver(
-                forName: NSWindow.willCloseNotification,
-                object: window,
-                queue: .main
-            ) { [weak self] _ in
-                MainActor.assumeIsolated {
-                    guard let self else { return }
-                    AppController.shared.unregisterWindowStore(self.store)
-                }
-            })
+        @objc private func handleWindowDidExitFullScreen(_ notification: Notification) {
+            isFullScreen.wrappedValue = false
+        }
+
+        @objc private func handleWindowWillClose(_ notification: Notification) {
+            NotificationCenter.default.removeObserver(self)
+            AppController.shared.unregisterWindowStore(store)
         }
 
         @objc private func handleCloseButton(_ sender: Any?) {
