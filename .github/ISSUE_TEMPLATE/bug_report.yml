@@ -1,0 +1,38 @@
+name: Hata Bildirimi (Bug Report)
+description: Kadmos'ta karşılaştığınız bir hatayı veya beklenmeyen davranışı bildirin.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Sorunu mümkün olduğunca hızlı çözebilmemiz için lütfen aşağıdaki bilgileri doldurun. (Belge içeriği veya kişisel dosya yollarını paylaşmayın.)
+  - type: textarea
+    id: description
+    attributes:
+      label: Sorun Açıklaması
+      description: Ne oldu? Beklenen davranış neydi?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Yeniden Üretme Adımları
+      placeholder: |
+        1. Kadmos'u açın
+        2. '...' menüsüne tıklayın
+        3. Hata oluşuyor
+    validations:
+      required: true
+  - type: input
+    id: macos_version
+    attributes:
+      label: macOS Sürümü ve Donanım
+      placeholder: "Örn: macOS 27.2, Apple Silicon (M4)"
+    validations:
+      required: true
+  - type: textarea
+    id: extra
+    attributes:
+      label: Ek Notlar / Ekran Görüntüsü
+      description: Varsa ek bilgi veya ekran görüntüsü ekleyin.

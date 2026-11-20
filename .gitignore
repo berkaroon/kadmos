@@ -1,0 +1,26 @@
+# Build & SwiftPM artifacts
+.build/
+.swiftpm/
+
+# Release binaries & DMG (distributed via GitHub Releases)
+dist/
+
+# Xcode user-specific state
+*.xcuserstate
+xcuserdata/
+*.moved-aside
+DerivedData/
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Secrets / signing credentials (never commit)
+*.p12
+*.p8
+*.cer
+*.mobileprovision
+.env
+.env.*

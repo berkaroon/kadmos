@@ -1,0 +1,639 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4613F68EFA3458F696215305 /* DocumentSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA920EBF165D3FFE54D92CF3; };
+		7906587FD7063DB1509B1279 /* KadmosLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A08D819652BFFFD4C893E7; };
+		6BDF942416898FBD5ED9D70F /* LineColumnCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30CF3A4F570173422A51162; };
+		AA6FBC9A6903B6929EA4CA00 /* LineEnding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBE107BBA5C5224A7AB8370; };
+		9D20D3D4632897AC50943539 /* SafeSearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD3BADECC187E8F9DE71524; };
+		2C0BB4F54677B5ED231FB460 /* SessionVault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C23B8E96ED7149801876C9F; };
+		B88D42465E056EB84E2A4647 /* TextEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1462A0EA1C3FDE82F7C7DC1; };
+		D38EBF84CFC6E8219568A45E /* TrojanSourceScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252152FCA82694C5AC606F20; };
+		D231A402CBFECEBF2191F857 /* URLRouteValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653DF2F97628C41193EF16D2; };
+		8E8F39C9BCD9D1D805724609 /* KadmosEditorRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE6250919AE423D6DDDA7; };
+		6C5C9FEE5B4A09B03BD3FBEB /* KadmosTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427C3DAC86F293C769CBBA24; };
+		E79597049762E15C3B4C52FF /* KadmosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6A3FC4743895C46EA1A8E6; };
+		AF9213D133C78BA0A319F53D /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41123AE454C077452737C8B; };
+		E05D261BC908740463CBE05F /* BookmarkStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D561A9903771AF34FA46EB; };
+		DD4316AFE416A71B372D610C /* DocumentTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572DB861535AC258ECFD778; };
+		D6817D28F5DAD58487F51BEB /* KadmosSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694980D3009BE004248140C1; };
+		2F617CFE9183991E599927C2 /* WindowTabStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655916B8D28EA0B875338952; };
+		440951A1124937F3B3682CB1 /* AboutKadmosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921414C8C79E21AA603130B8; };
+		17B03B827CFD61DDF22BA334 /* EditorContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE92002C8E8A1B7E6E036D85; };
+		40BAAD2FFF7BD458E31B9BA8 /* FindReplaceBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F33BCD142058D04D8C58D9A; };
+		E77CB3867EC4749087FB376F /* GlassTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD1124B06EE2A404EEA142A; };
+		977514E4473FEA842E961980 /* GoToLineSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858235F15D4BF82EA4DC12E6; };
+		A149B982D554B3D96422D3E2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013BE41AD060905DC7E21D06; };
+		BAAAB1FA6FE71574079C090F /* StatusBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5372A8676E9889B7EC60A4CA; };
+		4D45D5FA05C16BEEDE208CCA /* StreamingLargeFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E625D25245D53009B61A117; };
+		91F53BDAFB3E6982A782542B /* WindowDragArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD3101BF3FABA7EE03E1BD; };
+		F0BE47ADC00D816C797588EF /* FinderSyncExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F7265494BBF95669176AB; };
+		151BDBD11986D75B296B4A7A /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = CE4F2AC4F8CEB15C660CB2C1; };
+		07DF02C285FD86933F2EDB0E /* kadmos-icon-1024.png in Resources */ = {isa = PBXBuildFile; fileRef = A20845B2369A997FF38AE006; };
+		4AAFA01807052F775B3293C6 /* libKadmosCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C07E03FA34016D371E071F4; };
+		C25AEA44E512045A4392EBB0 /* FinderSync.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8330E7E618831B888CB7A8; };
+		156349B908910EADD9FC7BCB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27BC14C1F7FBED5CE38E95D2; };
+		12C83522BC06E809A89BD129 /* libKadmosCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C07E03FA34016D371E071F4; };
+		34FCEFD2BAC3BE61D9587CAA /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC9B6D7EFACDCA63A86ACB2; };
+		61470E96750DACF132802236 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1EF41A306921B7BB35B877; };
+		8FE692ED366370CDF08E8B97 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01E34D61E7EC1A72045B99DD; };
+		B2B93BC7C1DA8EE966CC230A /* KadmosFinderSync.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A3578AA919DB35BD6EE28CF3; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		717B17A85F986FCAF3FD8EDF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 244210E48437B6556980A702 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C14C783DA1E74A69E10A6E42;
+			remoteInfo = KadmosCore;
+		};
+		6F1B428F194F2AEE5D1B6A05 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 244210E48437B6556980A702 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C14C783DA1E74A69E10A6E42;
+			remoteInfo = KadmosCore;
+		};
+		F46C892DC3557C7CA1DC2686 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 244210E48437B6556980A702 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A53A43D7EECADF2E005E793B;
+			remoteInfo = KadmosFinderSync;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2A1ADA53917E3671317537EA /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				B2B93BC7C1DA8EE966CC230A /* KadmosFinderSync.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		4C07E03FA34016D371E071F4 /* libKadmosCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libKadmosCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3578AA919DB35BD6EE28CF3 /* KadmosFinderSync.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = KadmosFinderSync.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D0D4207C07D56AE26CBFDEC /* Kadmos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kadmos.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C8330E7E618831B888CB7A8 /* FinderSync.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FinderSync.framework; path = System/Library/Frameworks/FinderSync.framework; sourceTree = SDKROOT; };
+		27BC14C1F7FBED5CE38E95D2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		6FC9B6D7EFACDCA63A86ACB2 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		9B1EF41A306921B7BB35B877 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		01E34D61E7EC1A72045B99DD /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
+		CE4F2AC4F8CEB15C660CB2C1 /* Assets/AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = AppIcon.icns; path = Assets/AppIcon.icns; sourceTree = SOURCE_ROOT; };
+		A20845B2369A997FF38AE006 /* Assets/kadmos-icon-1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kadmos-icon-1024.png"; path = "Assets/kadmos-icon-1024.png"; sourceTree = SOURCE_ROOT; };
+		1CFC74DFE33EC7A6BD47F486 /* Config/Kadmos-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Kadmos-Info.plist"; path = "Config/Kadmos-Info.plist"; sourceTree = SOURCE_ROOT; };
+		676E03D5C72824F7D8B51D53 /* Config/Kadmos.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Kadmos.entitlements; path = Config/Kadmos.entitlements; sourceTree = SOURCE_ROOT; };
+		03272046A5EF78AFC111067E /* Config/KadmosFinderSync-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "KadmosFinderSync-Info.plist"; path = "Config/KadmosFinderSync-Info.plist"; sourceTree = SOURCE_ROOT; };
+		34A437860B157112804433ED /* Config/KadmosFinderSync.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = KadmosFinderSync.entitlements; path = Config/KadmosFinderSync.entitlements; sourceTree = SOURCE_ROOT; };
+		F29C151B33CC7A43D7EE8943 /* SECURITY.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = SECURITY.md; path = SECURITY.md; sourceTree = SOURCE_ROOT; };
+		5A7AE6250919AE423D6DDDA7 /* Sources/KadmosApp/Editor/KadmosEditorRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KadmosEditorRepresentable.swift; path = Sources/KadmosApp/Editor/KadmosEditorRepresentable.swift; sourceTree = SOURCE_ROOT; };
+		427C3DAC86F293C769CBBA24 /* Sources/KadmosApp/Editor/KadmosTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KadmosTextView.swift; path = Sources/KadmosApp/Editor/KadmosTextView.swift; sourceTree = SOURCE_ROOT; };
+		BE6A3FC4743895C46EA1A8E6 /* Sources/KadmosApp/KadmosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KadmosApp.swift; path = Sources/KadmosApp/KadmosApp.swift; sourceTree = SOURCE_ROOT; };
+		E41123AE454C077452737C8B /* Sources/KadmosApp/Models/AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppController.swift; path = Sources/KadmosApp/Models/AppController.swift; sourceTree = SOURCE_ROOT; };
+		E2D561A9903771AF34FA46EB /* Sources/KadmosApp/Models/BookmarkStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BookmarkStore.swift; path = Sources/KadmosApp/Models/BookmarkStore.swift; sourceTree = SOURCE_ROOT; };
+		9572DB861535AC258ECFD778 /* Sources/KadmosApp/Models/DocumentTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentTab.swift; path = Sources/KadmosApp/Models/DocumentTab.swift; sourceTree = SOURCE_ROOT; };
+		694980D3009BE004248140C1 /* Sources/KadmosApp/Models/KadmosSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KadmosSettings.swift; path = Sources/KadmosApp/Models/KadmosSettings.swift; sourceTree = SOURCE_ROOT; };
+		655916B8D28EA0B875338952 /* Sources/KadmosApp/Models/WindowTabStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WindowTabStore.swift; path = Sources/KadmosApp/Models/WindowTabStore.swift; sourceTree = SOURCE_ROOT; };
+		921414C8C79E21AA603130B8 /* Sources/KadmosApp/Views/AboutKadmosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AboutKadmosView.swift; path = Sources/KadmosApp/Views/AboutKadmosView.swift; sourceTree = SOURCE_ROOT; };
+		CE92002C8E8A1B7E6E036D85 /* Sources/KadmosApp/Views/EditorContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditorContentView.swift; path = Sources/KadmosApp/Views/EditorContentView.swift; sourceTree = SOURCE_ROOT; };
+		9F33BCD142058D04D8C58D9A /* Sources/KadmosApp/Views/FindReplaceBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FindReplaceBarView.swift; path = Sources/KadmosApp/Views/FindReplaceBarView.swift; sourceTree = SOURCE_ROOT; };
+		4AD1124B06EE2A404EEA142A /* Sources/KadmosApp/Views/GlassTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GlassTabBarView.swift; path = Sources/KadmosApp/Views/GlassTabBarView.swift; sourceTree = SOURCE_ROOT; };
+		858235F15D4BF82EA4DC12E6 /* Sources/KadmosApp/Views/GoToLineSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GoToLineSheetView.swift; path = Sources/KadmosApp/Views/GoToLineSheetView.swift; sourceTree = SOURCE_ROOT; };
+		013BE41AD060905DC7E21D06 /* Sources/KadmosApp/Views/SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = Sources/KadmosApp/Views/SettingsView.swift; sourceTree = SOURCE_ROOT; };
+		5372A8676E9889B7EC60A4CA /* Sources/KadmosApp/Views/StatusBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StatusBarView.swift; path = Sources/KadmosApp/Views/StatusBarView.swift; sourceTree = SOURCE_ROOT; };
+		7E625D25245D53009B61A117 /* Sources/KadmosApp/Views/StreamingLargeFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StreamingLargeFileView.swift; path = Sources/KadmosApp/Views/StreamingLargeFileView.swift; sourceTree = SOURCE_ROOT; };
+		B8DD3101BF3FABA7EE03E1BD /* Sources/KadmosApp/Views/WindowDragArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WindowDragArea.swift; path = Sources/KadmosApp/Views/WindowDragArea.swift; sourceTree = SOURCE_ROOT; };
+		FA920EBF165D3FFE54D92CF3 /* Sources/KadmosCore/DocumentSecurity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentSecurity.swift; path = Sources/KadmosCore/DocumentSecurity.swift; sourceTree = SOURCE_ROOT; };
+		B3A08D819652BFFFD4C893E7 /* Sources/KadmosCore/KadmosLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KadmosLogger.swift; path = Sources/KadmosCore/KadmosLogger.swift; sourceTree = SOURCE_ROOT; };
+		E30CF3A4F570173422A51162 /* Sources/KadmosCore/LineColumnCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LineColumnCalculator.swift; path = Sources/KadmosCore/LineColumnCalculator.swift; sourceTree = SOURCE_ROOT; };
+		6CBE107BBA5C5224A7AB8370 /* Sources/KadmosCore/LineEnding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LineEnding.swift; path = Sources/KadmosCore/LineEnding.swift; sourceTree = SOURCE_ROOT; };
+		FCD3BADECC187E8F9DE71524 /* Sources/KadmosCore/SafeSearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SafeSearchEngine.swift; path = Sources/KadmosCore/SafeSearchEngine.swift; sourceTree = SOURCE_ROOT; };
+		3C23B8E96ED7149801876C9F /* Sources/KadmosCore/SessionVault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SessionVault.swift; path = Sources/KadmosCore/SessionVault.swift; sourceTree = SOURCE_ROOT; };
+		C1462A0EA1C3FDE82F7C7DC1 /* Sources/KadmosCore/TextEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextEncoding.swift; path = Sources/KadmosCore/TextEncoding.swift; sourceTree = SOURCE_ROOT; };
+		252152FCA82694C5AC606F20 /* Sources/KadmosCore/TrojanSourceScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TrojanSourceScanner.swift; path = Sources/KadmosCore/TrojanSourceScanner.swift; sourceTree = SOURCE_ROOT; };
+		653DF2F97628C41193EF16D2 /* Sources/KadmosCore/URLRouteValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = URLRouteValidator.swift; path = Sources/KadmosCore/URLRouteValidator.swift; sourceTree = SOURCE_ROOT; };
+		2B8F7265494BBF95669176AB /* Sources/KadmosFinderSync/FinderSyncExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FinderSyncExtension.swift; path = Sources/KadmosFinderSync/FinderSyncExtension.swift; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E9688A372C1C2EA2CC69ED81 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4AAFA01807052F775B3293C6 /* libKadmosCore.a in Frameworks */,
+				C25AEA44E512045A4392EBB0 /* FinderSync.framework in Frameworks */,
+				156349B908910EADD9FC7BCB /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A51AD132C549A28CF87C9CF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12C83522BC06E809A89BD129 /* libKadmosCore.a in Frameworks */,
+				34FCEFD2BAC3BE61D9587CAA /* AppKit.framework in Frameworks */,
+				61470E96750DACF132802236 /* SwiftUI.framework in Frameworks */,
+				8FE692ED366370CDF08E8B97 /* UniformTypeIdentifiers.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AA0596BBDB4DCC95D5D4F10C = {
+			isa = PBXGroup;
+			children = (
+				647F22983932505F8226C46F /* Sources */,
+				63A8B02B52CDAD9CA875D42B /* Assets */,
+				1B3039B2E15DD2AB7EA6156D /* Config */,
+				3C3E84839B99B59B50C6F000 /* Frameworks */,
+				AE7805B56D1DCAFAA071416F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		647F22983932505F8226C46F /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				1F1230BBE15BF2102C918FD5 /* KadmosCore */,
+				6B2CA0EF4FBEB7589E8139A7 /* KadmosApp */,
+				442615E3C28226383B0D3DDE /* KadmosFinderSync */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		1F1230BBE15BF2102C918FD5 /* KadmosCore */ = {
+			isa = PBXGroup;
+			children = (
+				FA920EBF165D3FFE54D92CF3 /* DocumentSecurity.swift */,
+				B3A08D819652BFFFD4C893E7 /* KadmosLogger.swift */,
+				E30CF3A4F570173422A51162 /* LineColumnCalculator.swift */,
+				6CBE107BBA5C5224A7AB8370 /* LineEnding.swift */,
+				FCD3BADECC187E8F9DE71524 /* SafeSearchEngine.swift */,
+				3C23B8E96ED7149801876C9F /* SessionVault.swift */,
+				C1462A0EA1C3FDE82F7C7DC1 /* TextEncoding.swift */,
+				252152FCA82694C5AC606F20 /* TrojanSourceScanner.swift */,
+				653DF2F97628C41193EF16D2 /* URLRouteValidator.swift */,
+			);
+			name = KadmosCore;
+			sourceTree = "<group>";
+		};
+		6B2CA0EF4FBEB7589E8139A7 /* KadmosApp */ = {
+			isa = PBXGroup;
+			children = (
+				7BB610D26D5D46DA9D9D4898 /* Editor */,
+				25C00B42A193199F2261F613 /* Models */,
+				EBA6A4094F970DF6DE4067DA /* Views */,
+				BE6A3FC4743895C46EA1A8E6 /* KadmosApp.swift */,
+			);
+			name = KadmosApp;
+			sourceTree = "<group>";
+		};
+		7BB610D26D5D46DA9D9D4898 /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				5A7AE6250919AE423D6DDDA7 /* KadmosEditorRepresentable.swift */,
+				427C3DAC86F293C769CBBA24 /* KadmosTextView.swift */,
+			);
+			name = Editor;
+			sourceTree = "<group>";
+		};
+		25C00B42A193199F2261F613 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E41123AE454C077452737C8B /* AppController.swift */,
+				E2D561A9903771AF34FA46EB /* BookmarkStore.swift */,
+				9572DB861535AC258ECFD778 /* DocumentTab.swift */,
+				694980D3009BE004248140C1 /* KadmosSettings.swift */,
+				655916B8D28EA0B875338952 /* WindowTabStore.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		EBA6A4094F970DF6DE4067DA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				921414C8C79E21AA603130B8 /* AboutKadmosView.swift */,
+				CE92002C8E8A1B7E6E036D85 /* EditorContentView.swift */,
+				9F33BCD142058D04D8C58D9A /* FindReplaceBarView.swift */,
+				4AD1124B06EE2A404EEA142A /* GlassTabBarView.swift */,
+				858235F15D4BF82EA4DC12E6 /* GoToLineSheetView.swift */,
+				013BE41AD060905DC7E21D06 /* SettingsView.swift */,
+				5372A8676E9889B7EC60A4CA /* StatusBarView.swift */,
+				7E625D25245D53009B61A117 /* StreamingLargeFileView.swift */,
+				B8DD3101BF3FABA7EE03E1BD /* WindowDragArea.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		442615E3C28226383B0D3DDE /* KadmosFinderSync */ = {
+			isa = PBXGroup;
+			children = (
+				2B8F7265494BBF95669176AB /* FinderSyncExtension.swift */,
+			);
+			name = KadmosFinderSync;
+			sourceTree = "<group>";
+		};
+		63A8B02B52CDAD9CA875D42B /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				CE4F2AC4F8CEB15C660CB2C1 /* AppIcon.icns */,
+				A20845B2369A997FF38AE006 /* kadmos-icon-1024.png */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		1B3039B2E15DD2AB7EA6156D /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				676E03D5C72824F7D8B51D53 /* Kadmos.entitlements */,
+				34A437860B157112804433ED /* KadmosFinderSync.entitlements */,
+				1CFC74DFE33EC7A6BD47F486 /* Kadmos-Info.plist */,
+				03272046A5EF78AFC111067E /* KadmosFinderSync-Info.plist */,
+				F29C151B33CC7A43D7EE8943 /* SECURITY.md */,
+			);
+			name = Config;
+			sourceTree = "<group>";
+		};
+		3C3E84839B99B59B50C6F000 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3C8330E7E618831B888CB7A8 /* FinderSync.framework */,
+				27BC14C1F7FBED5CE38E95D2 /* Cocoa.framework */,
+				6FC9B6D7EFACDCA63A86ACB2 /* AppKit.framework */,
+				9B1EF41A306921B7BB35B877 /* SwiftUI.framework */,
+				01E34D61E7EC1A72045B99DD /* UniformTypeIdentifiers.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AE7805B56D1DCAFAA071416F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4C07E03FA34016D371E071F4 /* libKadmosCore.a */,
+				A3578AA919DB35BD6EE28CF3 /* KadmosFinderSync.appex */,
+				6D0D4207C07D56AE26CBFDEC /* Kadmos.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C14C783DA1E74A69E10A6E42 /* KadmosCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E9438BCF60707F1AE4F16EA4 /* Build configuration list for PBXNativeTarget "KadmosCore" */;
+			buildPhases = (
+				7564CDD53C6B534ED174FD5C /* Sources */,
+			);
+			buildRules = ();
+			dependencies = ();
+			name = KadmosCore;
+			productName = KadmosCore;
+			productReference = 4C07E03FA34016D371E071F4 /* libKadmosCore.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		A53A43D7EECADF2E005E793B /* KadmosFinderSync */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A6B4047F92B4B83259915FA9 /* Build configuration list for PBXNativeTarget "KadmosFinderSync" */;
+			buildPhases = (
+				CDC40A9A66F6C42A7D4E75E0 /* Sources */,
+				E9688A372C1C2EA2CC69ED81 /* Frameworks */,
+				F5DA65E7FA559D51A822024F /* Resources */,
+			);
+			buildRules = ();
+			dependencies = (
+				A8D16EE4D911747A0CE73360 /* PBXTargetDependency */,
+			);
+			name = KadmosFinderSync;
+			productName = KadmosFinderSync;
+			productReference = A3578AA919DB35BD6EE28CF3 /* KadmosFinderSync.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		A72FB75FC6C51F868C5276A5 /* Kadmos */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1FD0DCF0318A79D4EFF46572 /* Build configuration list for PBXNativeTarget "Kadmos" */;
+			buildPhases = (
+				23034EE1C7AFB53F2F433BD4 /* Sources */,
+				9A51AD132C549A28CF87C9CF /* Frameworks */,
+				2E2ED63A169B68EF397AB69E /* Resources */,
+				2A1ADA53917E3671317537EA /* Embed App Extensions */,
+			);
+			buildRules = ();
+			dependencies = (
+				1BA50910E5980243DF6AFCEF /* PBXTargetDependency */,
+				BD0BC50ACA97D1C33ED29C29 /* PBXTargetDependency */,
+			);
+			name = Kadmos;
+			productName = Kadmos;
+			productReference = 6D0D4207C07D56AE26CBFDEC /* Kadmos.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		244210E48437B6556980A702 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2700;
+				LastUpgradeCheck = 2700;
+				TargetAttributes = {
+					C14C783DA1E74A69E10A6E42 = { CreatedOnToolsVersion = 27.2; };
+					A53A43D7EECADF2E005E793B = { CreatedOnToolsVersion = 27.2; };
+					A72FB75FC6C51F868C5276A5 = { CreatedOnToolsVersion = 27.2; };
+				};
+			};
+			buildConfigurationList = 88651694C9EF2D25BD8E75A6 /* Build configuration list for PBXProject "Kadmos" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = tr;
+			hasScannedForEncodings = 0;
+			knownRegions = (tr, en, Base);
+			mainGroup = AA0596BBDB4DCC95D5D4F10C;
+			productRefGroup = AE7805B56D1DCAFAA071416F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C14C783DA1E74A69E10A6E42 /* KadmosCore */,
+				A53A43D7EECADF2E005E793B /* KadmosFinderSync */,
+				A72FB75FC6C51F868C5276A5 /* Kadmos */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F5DA65E7FA559D51A822024F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = ();
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E2ED63A169B68EF397AB69E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				151BDBD11986D75B296B4A7A /* AppIcon.icns in Resources */,
+				07DF02C285FD86933F2EDB0E /* kadmos-icon-1024.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7564CDD53C6B534ED174FD5C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4613F68EFA3458F696215305 /* DocumentSecurity.swift in Sources */,
+				7906587FD7063DB1509B1279 /* KadmosLogger.swift in Sources */,
+				6BDF942416898FBD5ED9D70F /* LineColumnCalculator.swift in Sources */,
+				AA6FBC9A6903B6929EA4CA00 /* LineEnding.swift in Sources */,
+				9D20D3D4632897AC50943539 /* SafeSearchEngine.swift in Sources */,
+				2C0BB4F54677B5ED231FB460 /* SessionVault.swift in Sources */,
+				B88D42465E056EB84E2A4647 /* TextEncoding.swift in Sources */,
+				D38EBF84CFC6E8219568A45E /* TrojanSourceScanner.swift in Sources */,
+				D231A402CBFECEBF2191F857 /* URLRouteValidator.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CDC40A9A66F6C42A7D4E75E0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0BE47ADC00D816C797588EF /* FinderSyncExtension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		23034EE1C7AFB53F2F433BD4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E8F39C9BCD9D1D805724609 /* KadmosEditorRepresentable.swift in Sources */,
+				6C5C9FEE5B4A09B03BD3FBEB /* KadmosTextView.swift in Sources */,
+				E79597049762E15C3B4C52FF /* KadmosApp.swift in Sources */,
+				AF9213D133C78BA0A319F53D /* AppController.swift in Sources */,
+				E05D261BC908740463CBE05F /* BookmarkStore.swift in Sources */,
+				DD4316AFE416A71B372D610C /* DocumentTab.swift in Sources */,
+				D6817D28F5DAD58487F51BEB /* KadmosSettings.swift in Sources */,
+				2F617CFE9183991E599927C2 /* WindowTabStore.swift in Sources */,
+				440951A1124937F3B3682CB1 /* AboutKadmosView.swift in Sources */,
+				17B03B827CFD61DDF22BA334 /* EditorContentView.swift in Sources */,
+				40BAAD2FFF7BD458E31B9BA8 /* FindReplaceBarView.swift in Sources */,
+				E77CB3867EC4749087FB376F /* GlassTabBarView.swift in Sources */,
+				977514E4473FEA842E961980 /* GoToLineSheetView.swift in Sources */,
+				A149B982D554B3D96422D3E2 /* SettingsView.swift in Sources */,
+				BAAAB1FA6FE71574079C090F /* StatusBarView.swift in Sources */,
+				4D45D5FA05C16BEEDE208CCA /* StreamingLargeFileView.swift in Sources */,
+				91F53BDAFB3E6982A782542B /* WindowDragArea.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1BA50910E5980243DF6AFCEF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C14C783DA1E74A69E10A6E42 /* KadmosCore */;
+			targetProxy = 717B17A85F986FCAF3FD8EDF /* PBXContainerItemProxy */;
+		};
+		A8D16EE4D911747A0CE73360 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C14C783DA1E74A69E10A6E42 /* KadmosCore */;
+			targetProxy = 6F1B428F194F2AEE5D1B6A05 /* PBXContainerItemProxy */;
+		};
+		BD0BC50ACA97D1C33ED29C29 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A53A43D7EECADF2E005E793B /* KadmosFinderSync */;
+			targetProxy = F46C892DC3557C7CA1DC2686 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1C9FDA849B6AD8E4A706194E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		26D9D48DC73579A75B561D56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		6DA4819E7FB0285F5B8B2DB5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				DEFINES_MODULE = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		AF5A642F55AF7C8F537AC794 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				DEFINES_MODULE = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		C730EB39214D12E43C803769 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = "Config/KadmosFinderSync.entitlements";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Config/KadmosFinderSync-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited) $(BUILT_PRODUCTS_DIR)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kadmos.macos.FinderSync;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "$(inherited) $(BUILT_PRODUCTS_DIR)";
+			};
+			name = Debug;
+		};
+		177208ED6008617909B85CAB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = "Config/KadmosFinderSync.entitlements";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Config/KadmosFinderSync-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited) $(BUILT_PRODUCTS_DIR)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kadmos.macos.FinderSync;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "$(inherited) $(BUILT_PRODUCTS_DIR)";
+			};
+			name = Release;
+		};
+		30A349EC6281AFD3E04D628F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Config/Kadmos.entitlements";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Config/Kadmos-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited) $(BUILT_PRODUCTS_DIR)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kadmos.macos;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INCLUDE_PATHS = "$(inherited) $(BUILT_PRODUCTS_DIR)";
+			};
+			name = Debug;
+		};
+		7A3078FE8E8B59AEE817BBBC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Config/Kadmos.entitlements";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Config/Kadmos-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited) $(BUILT_PRODUCTS_DIR)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kadmos.macos;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INCLUDE_PATHS = "$(inherited) $(BUILT_PRODUCTS_DIR)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		88651694C9EF2D25BD8E75A6 /* Build configuration list for PBXProject "Kadmos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C9FDA849B6AD8E4A706194E /* Debug */,
+				26D9D48DC73579A75B561D56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E9438BCF60707F1AE4F16EA4 /* Build configuration list for PBXNativeTarget "KadmosCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6DA4819E7FB0285F5B8B2DB5 /* Debug */,
+				AF5A642F55AF7C8F537AC794 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A6B4047F92B4B83259915FA9 /* Build configuration list for PBXNativeTarget "KadmosFinderSync" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C730EB39214D12E43C803769 /* Debug */,
+				177208ED6008617909B85CAB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1FD0DCF0318A79D4EFF46572 /* Build configuration list for PBXNativeTarget "Kadmos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				30A349EC6281AFD3E04D628F /* Debug */,
+				7A3078FE8E8B59AEE817BBBC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = 244210E48437B6556980A702 /* Project object */;
+}
