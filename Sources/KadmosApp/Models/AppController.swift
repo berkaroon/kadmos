@@ -2,6 +2,7 @@ import AppKit
 import Foundation
 import KadmosCore
 import Observation
+import SwiftUI
 
 /// Central application coordinator owning open window tab stores, `SessionVault` persistence,
 /// `kadmos://` URL routing (`SECURITY.md` §5), and open/save panels.
@@ -14,8 +15,8 @@ public final class AppController {
     public private(set) var windows: [WindowTabStore] = []
     public var activeWindowID: UUID?
 
-    @ObservationIgnored private var pendingWindowStores: [WindowTabStore] = []
-    @ObservationIgnored private var openNewWindowAction: (() -> Void)?
+    @ObservationIgnored private var windowControllers: [UUID: KadmosWindowController] = [:]
+    @ObservationIgnored private var aboutWindowController: NSWindowController?
     @ObservationIgnored private var sessionSaveTask: Task<Void, Never>?
     @ObservationIgnored private var hasAttemptedInitialRestore = false
 
@@ -42,34 +43,71 @@ public final class AppController {
         NSApp?.activate(ignoringOtherApps: true)
     }
 
-    /// Called when `applicationDidFinishLaunching` completes to ensure cold launches from Finder come straight to front.
-    public func handleDidFinishLaunching() {
-        activateApplication()
-        if let store = activeWindowStore ?? windows.first {
-            bringWindowToFront(store)
+    /// Opens the initial editor window on normal launch if `application(_:open:)` did not already open one.
+    public func openInitialWindowIfNeeded() {
+        if let existing = activeWindowStore ?? windows.first {
+            bringWindowToFront(existing)
+            return
         }
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            self.activateApplication()
-            if let store = self.activeWindowStore ?? self.windows.first {
-                self.bringWindowToFront(store)
+
+        if !hasAttemptedInitialRestore {
+            hasAttemptedInitialRestore = true
+            if KadmosSettings.shared.startupBehavior == .continuePreviousSession,
+               let restored = restoreSessionIntoStore() {
+                openWindow(for: restored)
+                return
             }
         }
+
+        let fresh = WindowTabStore(settings: KadmosSettings.shared, createInitialTab: true)
+        openWindow(for: fresh)
+    }
+
+    /// Synchronously creates and presents a native `KadmosWindowController` for `store`.
+    public func openWindow(for store: WindowTabStore) {
+        let anchor = activeWindowStore?.hostWindow
+        registerWindowStore(store)
+        let controller = KadmosWindowController(
+            store: store,
+            settings: KadmosSettings.shared,
+            cascadingFrom: anchor
+        )
+        windowControllers[store.windowID] = controller
+        controller.showWindow(nil)
+        bringWindowToFront(store)
+    }
+
+    /// Presents the native "Kadmos Hakkında" window (only when explicitly requested from the menu).
+    public func showAboutWindow() {
+        if let existing = aboutWindowController?.window {
+            activateApplication()
+            existing.makeKeyAndOrderFront(nil)
+            return
+        }
+
+        let hosting = NSHostingController(rootView: AboutKadmosView())
+        let window = NSWindow(contentViewController: hosting)
+        window.title = "Kadmos Hakkında"
+        window.styleMask = [.titled, .closable]
+        window.isReleasedWhenClosed = false
+        window.center()
+
+        let controller = NSWindowController(window: window)
+        aboutWindowController = controller
+        activateApplication()
+        controller.showWindow(nil)
+        window.makeKeyAndOrderFront(nil)
     }
 
     /// Activates Kadmos, unminiaturizes if needed, orders the target window to front, and focuses the editor.
     public func bringWindowToFront(_ store: WindowTabStore) {
         activateApplication()
-        guard let window = store.hostWindow else {
-            store.pendingBringToFront = true
-            return
-        }
-        store.pendingBringToFront = false
+        guard let window = store.hostWindow else { return }
         if window.isMiniaturized {
             window.deminiaturize(nil)
         }
-        window.makeKeyAndOrderFront(nil)
         window.orderFrontRegardless()
+        window.makeKeyAndOrderFront(nil)
         store.dispatchEditorAction(.focusEditor)
 
         DispatchQueue.main.async { [weak self, weak window, weak store] in
@@ -81,50 +119,6 @@ public final class AppController {
             window.makeKeyAndOrderFront(nil)
             store.dispatchEditorAction(.focusEditor)
         }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) { [weak self, weak window, weak store] in
-            guard let self, let window, let store else { return }
-            guard NSApp?.isActive != true || !window.isKeyWindow else { return }
-            self.activateApplication()
-            if window.isMiniaturized {
-                window.deminiaturize(nil)
-            }
-            window.makeKeyAndOrderFront(nil)
-            store.dispatchEditorAction(.focusEditor)
-        }
-    }
-
-    /// Registers SwiftUI's `openWindow(id: "editor")` closure for programmatic multi-window creation.
-    public func registerOpenWindowHandler(_ handler: @escaping () -> Void) {
-        openNewWindowAction = handler
-        if !pendingWindowStores.isEmpty {
-            let pendingCount = pendingWindowStores.count
-            for _ in 0..<pendingCount {
-                handler()
-            }
-        }
-    }
-
-    /// Claims a pending `WindowTabStore` or creates/restores a store when a SwiftUI `WindowGroup` scene mounts.
-    public func claimOrCreateWindowStore() -> WindowTabStore {
-        if !pendingWindowStores.isEmpty {
-            let store = pendingWindowStores.removeFirst()
-            registerWindowStore(store)
-            return store
-        }
-
-        if !hasAttemptedInitialRestore {
-            hasAttemptedInitialRestore = true
-            if KadmosSettings.shared.startupBehavior == .continuePreviousSession,
-               let restored = restoreSessionIntoStore() {
-                registerWindowStore(restored)
-                return restored
-            }
-        }
-
-        let fresh = WindowTabStore(settings: KadmosSettings.shared, createInitialTab: true)
-        registerWindowStore(fresh)
-        return fresh
     }
 
     public func registerWindowStore(_ store: WindowTabStore) {
@@ -135,6 +129,11 @@ public final class AppController {
             self?.scheduleSessionPersist()
         }
         activeWindowID = store.windowID
+    }
+
+    public func unregisterWindowController(_ controller: KadmosWindowController) {
+        windowControllers.removeValue(forKey: controller.store.windowID)
+        unregisterWindowStore(controller.store)
     }
 
     public func unregisterWindowStore(_ store: WindowTabStore) {
@@ -148,13 +147,7 @@ public final class AppController {
     /// Opens a brand-new editor window (`⌘⇧N`).
     public func openNewWindow() {
         let store = WindowTabStore(settings: KadmosSettings.shared, createInitialTab: true)
-        store.pendingBringToFront = true
-        pendingWindowStores.append(store)
-        if let openNewWindowAction {
-            openNewWindowAction()
-        } else {
-            registerWindowStore(store)
-        }
+        openWindow(for: store)
     }
 
     /// Moves `tab` out of `sourceStore` into a newly spawned window.
@@ -162,8 +155,7 @@ public final class AppController {
         guard let detached = sourceStore.detachTabForNewWindow(tab) else { return }
         let newStore = WindowTabStore(settings: KadmosSettings.shared, createInitialTab: false)
         newStore.insertRestoredTab(detached, select: true)
-        pendingWindowStores.append(newStore)
-        openNewWindowAction?()
+        openWindow(for: newStore)
         scheduleSessionPersist()
     }
 
@@ -187,16 +179,24 @@ public final class AppController {
 
         switch KadmosSettings.shared.openFilesTarget {
         case .newTab:
-            let targetStore = ensureTargetWindowStore(createInitialTab: false)
-            for url in urls {
-                targetStore.openFile(url: url)
-            }
-            if targetStore.tabs.isEmpty {
-                _ = targetStore.addNewTab(select: true)
+            if let existing = activeWindowStore {
+                for url in urls {
+                    existing.openFile(url: url)
+                }
+                existing.pruneEmptyPristineUntitledTabs()
+                bringWindowToFront(existing)
             } else {
-                targetStore.pruneEmptyPristineUntitledTabs()
+                let fresh = WindowTabStore(settings: KadmosSettings.shared, createInitialTab: false)
+                for url in urls {
+                    fresh.openFile(url: url)
+                }
+                if fresh.tabs.isEmpty {
+                    _ = fresh.addNewTab(select: true)
+                } else {
+                    fresh.pruneEmptyPristineUntitledTabs()
+                }
+                openWindow(for: fresh)
             }
-            bringWindowToFront(targetStore)
 
         case .newWindow:
             if let existing = activeWindowStore,
@@ -223,9 +223,7 @@ public final class AppController {
         if store.tabs.isEmpty {
             _ = store.addNewTab(select: true)
         }
-        store.pendingBringToFront = true
-        pendingWindowStores.append(store)
-        openNewWindowAction?()
+        openWindow(for: store)
     }
 
     /// Opens a recent file entry using its stored security-scoped bookmark (`SECURITY.md` §2.4).
@@ -430,12 +428,7 @@ public final class AppController {
             return active
         }
         let fresh = WindowTabStore(settings: KadmosSettings.shared, createInitialTab: createInitialTab)
-        fresh.pendingBringToFront = true
-        pendingWindowStores.append(fresh)
-        openNewWindowAction?()
-        if !windows.contains(where: { $0.windowID == fresh.windowID }) {
-            registerWindowStore(fresh)
-        }
+        openWindow(for: fresh)
         return fresh
     }
 

@@ -2,38 +2,12 @@ import AppKit
 import KadmosCore
 import SwiftUI
 
-/// Root view hosted by each editor `WindowGroup` scene, owning a claimed/restored `WindowTabStore`.
-private struct EditorWindowRoot: View {
-    @State private var store: WindowTabStore?
-    @State private var settings = KadmosSettings.shared
-    @Environment(\.openWindow) private var openWindow
-
-    var body: some View {
-        Group {
-            if let store {
-                EditorContentView(store: store, settings: settings)
-            } else {
-                Color.clear
-                    .frame(minWidth: 980, minHeight: 680)
-            }
-        }
-        .onAppear {
-            if store == nil {
-                store = AppController.shared.claimOrCreateWindowStore()
-            }
-            AppController.shared.registerOpenWindowHandler {
-                openWindow(id: "editor")
-            }
-        }
-    }
-}
-
 /// AppKit lifecycle delegate bridging Finder open-file requests, `kadmos://` URLs, and termination.
 @MainActor
 public final class AppDelegate: NSObject, NSApplicationDelegate {
     public func applicationDidFinishLaunching(_ notification: Notification) {
         KadmosSettings.shared.applyAppearance()
-        AppController.shared.handleDidFinishLaunching()
+        AppController.shared.openInitialWindowIfNeeded()
     }
 
     public func application(_ application: NSApplication, open urls: [URL]) {
@@ -56,14 +30,10 @@ public final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     public func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
-        if !flag {
-            if let existingStore = AppController.shared.activeWindowStore ?? AppController.shared.windows.first {
-                AppController.shared.bringWindowToFront(existingStore)
-            } else {
-                AppController.shared.openNewWindow()
-            }
-        } else if let activeStore = AppController.shared.activeWindowStore {
-            AppController.shared.bringWindowToFront(activeStore)
+        if let existingStore = AppController.shared.activeWindowStore ?? AppController.shared.windows.first {
+            AppController.shared.bringWindowToFront(existingStore)
+        } else {
+            AppController.shared.openNewWindow()
         }
         return true
     }
@@ -76,35 +46,18 @@ public struct KadmosApp: App {
     public init() {}
 
     public var body: some Scene {
-        WindowGroup("Kadmos", id: "editor") {
-            EditorWindowRoot()
-        }
-        .windowStyle(.hiddenTitleBar)
-        .defaultLaunchBehavior(.presented)
-        .handlesExternalEvents(matching: Set<String>())
-        .defaultSize(width: 980, height: 680)
-        .commands {
-            KadmosCommands()
-        }
-
         Settings {
             SettingsView()
         }
-
-        Window("Kadmos Hakkında", id: "about") {
-            AboutKadmosView()
+        .commands {
+            KadmosCommands()
         }
-        .defaultLaunchBehavior(.suppressed)
-        .handlesExternalEvents(matching: Set<String>())
-        .windowResizability(.contentSize)
     }
 }
 
 // MARK: - Complete Native macOS Menu Bar Commands
 
 private struct KadmosCommands: Commands {
-    @Environment(\.openWindow) private var openWindow
-
     private var controller: AppController { AppController.shared }
     private var activeStore: WindowTabStore? { controller.activeWindowStore }
     private var activeTab: DocumentTab? { activeStore?.activeTab }
@@ -120,7 +73,7 @@ private struct KadmosCommands: Commands {
         // App Info
         CommandGroup(replacing: .appInfo) {
             Button("Kadmos Hakkında") {
-                openWindow(id: "about")
+                controller.showAboutWindow()
             }
         }
 

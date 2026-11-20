@@ -25,7 +25,7 @@
 ## Download & Install
 
 - **Direct Download:** [**Kadmos.dmg**](https://github.com/berkaroon/Kadmos/raw/main/dist/Kadmos.dmg) (`3.6 MB`, Universal `arm64 + x86_64`)
-- **SHA-256:** `3415ecbd6bfdffc0ecaf0cda93c7a362a3ba093320f1717f489b14b6f4640991`
+- **SHA-256:** `61fbb9227ce999212380ba507fbed1b89c2dc0d4e85a3ab1ee9f43689a858133`
 
 ### Installation Steps
 1. Open **`Kadmos.dmg`** and drag **Kadmos.app** into your **Applications** folder.

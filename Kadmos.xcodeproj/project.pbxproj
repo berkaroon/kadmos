@@ -29,6 +29,7 @@
 		4A675DD3F9F21707EA68244B /* GlassCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D644AD350E23953034994EF; };
 		E77CB3867EC4749087FB376F /* GlassTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD1124B06EE2A404EEA142A; };
 		977514E4473FEA842E961980 /* GoToLineSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858235F15D4BF82EA4DC12E6; };
+		744BF9574859B7450877CBB0 /* KadmosWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84ADA6A6B20BA85F687D390; };
 		A149B982D554B3D96422D3E2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013BE41AD060905DC7E21D06; };
 		BAAAB1FA6FE71574079C090F /* StatusBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5372A8676E9889B7EC60A4CA; };
 		4D45D5FA05C16BEEDE208CCA /* StreamingLargeFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E625D25245D53009B61A117; };
@@ -114,6 +115,7 @@
 		4D644AD350E23953034994EF /* Sources/KadmosApp/Views/GlassCompatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GlassCompatibility.swift; path = Sources/KadmosApp/Views/GlassCompatibility.swift; sourceTree = SOURCE_ROOT; };
 		4AD1124B06EE2A404EEA142A /* Sources/KadmosApp/Views/GlassTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GlassTabBarView.swift; path = Sources/KadmosApp/Views/GlassTabBarView.swift; sourceTree = SOURCE_ROOT; };
 		858235F15D4BF82EA4DC12E6 /* Sources/KadmosApp/Views/GoToLineSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GoToLineSheetView.swift; path = Sources/KadmosApp/Views/GoToLineSheetView.swift; sourceTree = SOURCE_ROOT; };
+		E84ADA6A6B20BA85F687D390 /* Sources/KadmosApp/Views/KadmosWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KadmosWindowController.swift; path = Sources/KadmosApp/Views/KadmosWindowController.swift; sourceTree = SOURCE_ROOT; };
 		013BE41AD060905DC7E21D06 /* Sources/KadmosApp/Views/SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = Sources/KadmosApp/Views/SettingsView.swift; sourceTree = SOURCE_ROOT; };
 		5372A8676E9889B7EC60A4CA /* Sources/KadmosApp/Views/StatusBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StatusBarView.swift; path = Sources/KadmosApp/Views/StatusBarView.swift; sourceTree = SOURCE_ROOT; };
 		7E625D25245D53009B61A117 /* Sources/KadmosApp/Views/StreamingLargeFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StreamingLargeFileView.swift; path = Sources/KadmosApp/Views/StreamingLargeFileView.swift; sourceTree = SOURCE_ROOT; };
@@ -233,6 +235,7 @@
 				4D644AD350E23953034994EF /* GlassCompatibility.swift */,
 				4AD1124B06EE2A404EEA142A /* GlassTabBarView.swift */,
 				858235F15D4BF82EA4DC12E6 /* GoToLineSheetView.swift */,
+				E84ADA6A6B20BA85F687D390 /* KadmosWindowController.swift */,
 				013BE41AD060905DC7E21D06 /* SettingsView.swift */,
 				5372A8676E9889B7EC60A4CA /* StatusBarView.swift */,
 				7E625D25245D53009B61A117 /* StreamingLargeFileView.swift */,
@@ -437,6 +440,7 @@
 				4A675DD3F9F21707EA68244B /* GlassCompatibility.swift in Sources */,
 				E77CB3867EC4749087FB376F /* GlassTabBarView.swift in Sources */,
 				977514E4473FEA842E961980 /* GoToLineSheetView.swift in Sources */,
+				744BF9574859B7450877CBB0 /* KadmosWindowController.swift in Sources */,
 				A149B982D554B3D96422D3E2 /* SettingsView.swift in Sources */,
 				BAAAB1FA6FE71574079C090F /* StatusBarView.swift in Sources */,
 				4D45D5FA05C16BEEDE208CCA /* StreamingLargeFileView.swift in Sources */,

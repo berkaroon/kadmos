@@ -8,8 +8,6 @@ public struct EditorContentView: View {
     @Bindable public var store: WindowTabStore
     public let settings: KadmosSettings
 
-    @State private var isFullScreen: Bool = false
-
     public init(store: WindowTabStore, settings: KadmosSettings = .shared) {
         self.store = store
         self.settings = settings
@@ -46,7 +44,7 @@ public struct EditorContentView: View {
                 }
 
                 VStack(spacing: 0) {
-                    GlassTabBarView(store: store, isFullScreen: isFullScreen)
+                    GlassTabBarView(store: store, isFullScreen: store.isFullScreen)
 
                     if let tab = store.activeTab {
                         warningBanners(for: tab)
@@ -70,10 +68,6 @@ public struct EditorContentView: View {
                 StatusBarView(tab: tab, store: store, settings: settings)
             }
         }
-        .background(
-            WindowLifecycleAccessor(store: store, isFullScreen: $isFullScreen)
-                .frame(width: 0, height: 0)
-        )
         .sheet(isPresented: $store.isGoToLinePresented) {
             GoToLineSheetView(store: store)
         }
